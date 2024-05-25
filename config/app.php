@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +233,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
+        'PdfReport' => Jimmyjs\ReportGenerator\Facades\PdfReportFacade::class,
+        'ExcelReport' => Jimmyjs\ReportGenerator\Facades\ExcelReportFacade::class,
+        'CSVReport' => Jimmyjs\ReportGenerator\Facades\CSVReportFacade::class,
     ],
 
 ];
