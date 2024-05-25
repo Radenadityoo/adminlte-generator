@@ -13,7 +13,7 @@
                         Add New
                     </a>
                     <a class="btn btn-primary float-right"
-                       href="{{ route('reksaDanas.create') }}">
+                       href="{{ route('reksaDanas.index',['download'=>'pdf']) }}">
                         Generate Report
                     </a>
                 </div>

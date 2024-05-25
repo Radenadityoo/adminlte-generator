@@ -15,7 +15,7 @@ class DynamicPDFController extends Controller
     public function generateReport()
     {
         $data = ['data' => $this->getData()]; // Assume getData() fetches your data
-        $pdf = DomPDF::loadView('your.view.path', $data); // Use the imported PDF class
+        $pdf = DomPDF::loadView('reksa_danas.report', $data); // Use the imported PDF class
         return $pdf->download('report.pdf');
     }
 }

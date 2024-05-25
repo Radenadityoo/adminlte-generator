@@ -6,8 +6,11 @@ use App\Http\Requests\CreateReksaDanaRequest;
 use App\Http\Requests\UpdateReksaDanaRequest;
 use App\Repositories\ReksaDanaRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\ReksaDana;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
+use Barryvdh\DomPDF\PDF;
+use PdfReport;
 use Response;
 
 class ReksaDanaController extends AppBaseController
@@ -15,9 +18,13 @@ class ReksaDanaController extends AppBaseController
     /** @var ReksaDanaRepository $reksaDanaRepository*/
     private $reksaDanaRepository;
 
-    public function __construct(ReksaDanaRepository $reksaDanaRepo)
+    /** @var PDF */
+    private $pdf;
+
+    public function __construct(ReksaDanaRepository $reksaDanaRepo, PDF $pdf)
     {
         $this->reksaDanaRepository = $reksaDanaRepo;
+        $this->pdf = $pdf;
     }
 
     /**
@@ -30,10 +37,17 @@ class ReksaDanaController extends AppBaseController
     public function index(Request $request)
     {
         $reksaDanas = $this->reksaDanaRepository->paginate(10);
+        $data = [
+            'mahasiswa' => $reksaDanas,
+        ];
+        if ($request->has('download')) {
+            $pdf = $this->pdf->loadView('reksa_danas.report', $data);
+            return $pdf->download('reksa_danas.pdf');
+        }
 
-        return view('reksa_danas.index')
-            ->with('reksaDanas', $reksaDanas);
+        return view('reksa_danas.index', compact('reksaDanas'));
     }
+
 
     /**
      * Show the form for creating a new ReksaDana.
@@ -153,4 +167,5 @@ class ReksaDanaController extends AppBaseController
 
         return redirect(route('reksaDanas.index'));
     }
+
 }
